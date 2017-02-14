@@ -1,0 +1,16 @@
+{
+		"requestInterceptors": [{
+			"type": "http",
+			"paths": ["/v2-beta/projects/{path:.*}"],
+			"endpoint": "http://104.154.183.143:8000/",
+			"methods": ["get"],
+			"secretToken": ""
+		},
+		{
+			"type": "http",
+			"paths": ["/v2-beta/projects/{path:.*}"],
+			"endpoint": "http://104.198.16.199:8000/",
+			"methods": ["get"],
+			"secretToken": ""
+		}]
+}
