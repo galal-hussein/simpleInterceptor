@@ -1,0 +1,16 @@
+{
+		"requestInterceptors": [{
+			"type": "authTokenValidator",
+			"paths": ["/v2-beta/projects/1a63/schema{path:.*}"],
+			"endpoint": "",
+			"methods": ["get", "post", "delete"],
+			"secretToken": ""
+		},
+		{
+			"type": "http",
+			"paths": ["/v2-beta/projects/1a63/schema{path:.*}"],
+			"endpoint": "http://104.198.16.199:8000/blockuser",
+			"methods": ["get", "post", "delete"],
+			"secretToken": ""
+		}]
+}

@@ -1,0 +1,13 @@
+{
+		"requestInterceptors": [ {
+			"type": "http",
+			"paths": ["/v2-beta/projects/1a63/schema"],
+			"endpoint": "http://104.154.183.143:8000/",
+			"methods": ["get"],
+			"secretToken": ""
+		}],
+	"destinations": [{
+		"paths": ["/v2-beta/projects/1a63/schema"],
+		"destinationURL": "http://35.184.53.27:8000/finaldestination"
+	}]
+}

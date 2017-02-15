@@ -38,15 +38,18 @@ func main() {
 	logrus.Infof("Starting Rancher API Interceptor")
 	CheckDebug()
 
-	//router := NewRouter()
-	http.HandleFunc("/", Index)        //router
-	http.HandleFunc("/secret", Secret) //router
+	http.HandleFunc("/", Index)
+	http.HandleFunc("/secret", Secret)
+	http.HandleFunc("/authtokenvalidator", Auth)
+	http.HandleFunc("/modifystackname", ModifyBody)
+	http.HandleFunc("/finaldestination/", Destination)
+	http.HandleFunc("/secret1", ChainedSecret1)
+	http.HandleFunc("/secret2", ChainedSecret2)
+	http.HandleFunc("/blockuser", BlockLDAPUser)
+	http.HandleFunc("/sleep", Sleepy)
+	http.HandleFunc("/unhandled", Unhandled)
 	err := http.ListenAndServe(":8000", nil)
 	if err != nil {
 		logrus.Fatal("Error: ", err)
 	}
-	//err := http.ListenAndServe(":8000", router)
-	//if err != nil {
-	//	logrus.Fatal("Error: ", err)
-	//}
 }
