@@ -23,6 +23,7 @@ func printAPIRequest(request Interceptor) {
 	logrus.Debug("Body: ", request.Body)
 	logrus.Debug("EnvID: ", request.EnvID)
 	logrus.Debug("API Path: ", request.APIPath)
+	logrus.Debug("API Method: ", request.APIMethod)
 	logrus.Debug("Request Ended.....")
 }
 
@@ -261,7 +262,7 @@ func BlockLDAPUser(w http.ResponseWriter, r *http.Request) {
 
 // Unhandled route
 func Unhandled(w http.ResponseWriter, r *http.Request) {
-	return
+	w.WriteHeader(500)
 }
 
 // Sleepy route
@@ -279,4 +280,23 @@ func Sleepy(w http.ResponseWriter, r *http.Request) {
 	printAPIRequest(request)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+}
+
+// Failure route
+func Failure(w http.ResponseWriter, r *http.Request) {
+	var request Interceptor
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&request)
+	if err != nil {
+		logrus.Fatal("Error: ", err)
+		return
+	}
+	logrus.Infof("Endpoint Invoked %q", html.EscapeString(r.URL.Path))
+	printAPIRequest(request)
+
+	request.Message = "This is a custom error"
+
+	logrus.Infof("Returning 429 error")
+	w.WriteHeader(429)
+	json.NewEncoder(w).Encode(request)
 }

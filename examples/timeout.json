@@ -1,0 +1,10 @@
+{
+		"requestInterceptors": [ {
+			"type": "http",
+			"paths": ["/v2-beta/projects/1a63/stacks"],
+			"endpoint": "http://104.154.183.143:8000/sleep",
+			"methods": ["get"],
+			"secretToken": "",
+			"timeout": "10"
+		}]
+}

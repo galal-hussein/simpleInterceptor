@@ -9,12 +9,14 @@ import (
 )
 
 type Interceptor struct {
-	Headers map[string][]string    `json:"headers,omitempty"`
-	Body    map[string]interface{} `json:"body,omitempty"`
-	UUID    string                 `json:"UUID,omitempty"`
-	APIPath string                 `json:"APIPath,omitempty"`
-	EnvID   string                 `json:"envID,omitempty"`
-	Status  int                    `json:"status,omitempty"`
+	Headers   map[string][]string    `json:"headers,omitempty"`
+	Body      map[string]interface{} `json:"body,omitempty"`
+	UUID      string                 `json:"UUID,omitempty"`
+	APIPath   string                 `json:"APIPath,omitempty"`
+	APIMethod string                 `json:"APIMethod,omitempty"`
+	EnvID     string                 `json:"envID,omitempty"`
+	Status    int                    `json:"status,omitempty"`
+	Message   string                 `json:"message,omitempty"`
 }
 
 var (
@@ -48,6 +50,7 @@ func main() {
 	http.HandleFunc("/blockuser", BlockLDAPUser)
 	http.HandleFunc("/sleep", Sleepy)
 	http.HandleFunc("/unhandled", Unhandled)
+	http.HandleFunc("/failure", Failure)
 	err := http.ListenAndServe(":8000", nil)
 	if err != nil {
 		logrus.Fatal("Error: ", err)
