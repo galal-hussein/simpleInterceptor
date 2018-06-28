@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -249,10 +250,12 @@ func BlockLDAPUser(w http.ResponseWriter, r *http.Request) {
 	logrus.Infof("Endpoint Invoked %q", html.EscapeString(r.URL.Path))
 	printAPIRequest(request)
 
+	// Get account id
+	accountIDEnv := os.Getenv("LDAP_BLOCK_ACCOUNT_ID")
 	// Check the account ID
 	accountID := request.Headers["X-API-Account-Id"]
 	logrus.Infof("Account ID %s", accountID)
-	if accountID[0] == "1a65" {
+	if accountID[0] == accountIDEnv {
 		w.WriteHeader(401)
 		logrus.Info("This user is not authorized..")
 	}
